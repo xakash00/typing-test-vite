@@ -23,13 +23,12 @@ function App() {
     correctLetters: 0,
     accuracy: 0
   });
-  // getting differents words from `https://random-word-api.herokuapp.com/word?number=${WORDS_NUMBER}`
+  // getting differents words from `http://metaphorpsum.com/paragraphs/1/20`
   const fetchData = useCallback(async () => {
     setLoading(true)
-    axios.get("https://random-word-api.herokuapp.com/word?number=200").then((data) => {
+    axios.get("http://metaphorpsum.com/paragraphs/1/20").then((data) => {
       setWords(
         data.data
-          .join(' ')
           .split('')
           .map((letter, index) => (
             <span key={index} id={`letter__${index}`}>
@@ -121,22 +120,24 @@ function App() {
 
   return (
     <Container id="typing__test__speed">
-      <Header />
-      <Box color="#FFDB58" mt={'30px'} {...(isFocused && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
+      <Header refetch={fetchData} />
+      <Box color="#FFDB58" mt={'30px'} {...(duration < 11 && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
         {duration}
       </Box>
       {!showCard && <div>
-        {loading === true && <Loader />}
-        <div className='typing__textArea'>
-          <InputTextField
-            unselectable='on'
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-            onInput={handleInput}
-            ref={textAreaRef}
-          />
-        </div>
-        <div className='typing__words'>{words.length > 0 && words}</div>
+        {loading === true ? <Loader /> : <>
+          <div className='typing__textArea'>
+            <InputTextField
+              unselectable='on'
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              onInput={handleInput}
+              ref={textAreaRef}
+            />
+          </div>
+          <div className='typing__words'>{words.length > 0 && words}</div>
+        </>
+        }
 
       </div>}
 
@@ -158,7 +159,7 @@ export default App
 
 const Loader = () => {
   return (
-    <Box w='100%' marginTop={"20%"} textAlign={"center"} >
+    <Box w='100%' marginTop={"10%"} textAlign={"center"} >
       <Spinner color="#FFDB58" size='xl' />
     </Box>
   )
