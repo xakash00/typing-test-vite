@@ -37,7 +37,8 @@ function App() {
           )),
       );
       setLoading(false)
-    }).catch(() => {
+    }).catch((err) => {
+      console.log(err)
       setLoading(false)
       setWords(
         sample
