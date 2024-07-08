@@ -1,46 +1,9 @@
-@font-face {
-  font-family: 'Integral CF';
-  src: url('../fonts/integral-cf/IntegralCFMediumRegular.eot');
-  src:
-    url('../fonts/integral-cf/IntegralCFMediumRegular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/integral-cf/IntegralCFMediumRegular.woff') format('woff'),
-    url('../fonts/integral-cf/IntegralCFMediumRegular.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Integral CF';
-  src: url('../fonts/integral-cf/IntegralCFRegular.eot');
-  src:
-    url('../fonts/integral-cf/IntegralCFRegular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/integral-cf/IntegralCFRegular.woff') format('woff'),
-    url('../fonts/integral-cf/IntegralCFRegular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Integral CF';
-  src: url('../fonts/integral-cf/IntegralCFBoldRegular.eot');
-  src:
-    url('../fonts/integral-cf/IntegralCFBoldRegular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/integral-cf/IntegralCFBoldRegular.woff') format('woff'),
-    url('../fonts/integral-cf/IntegralCFBoldRegular.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 body {
   font-family: Integral CF;
-
 }
 
 .letter__correct {
-  color: green;
+  color: #FFDB58;
 }
 
 .letter__incorrect {
@@ -49,4 +12,15 @@ body {
 
 .typing__cursor {
   border-bottom: 4px solid black;
+}
+
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

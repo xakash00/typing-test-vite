@@ -1,47 +1,59 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import { TYPING_DURATION } from "./constants/constants";
-import axios from "axios"
-import { Box } from "@chakra-ui/react";
+import axios from "axios";
+import { Box, Spinner } from "@chakra-ui/react";
 import { Container, InputTextField } from "./styled";
-import "./App.css"
+import "./App.css";
+import Header from "./components/header";
+
+const sample = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre &amp; Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts &amp; Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad &amp; Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks &amp; Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"]
+
+
+
 function App() {
   const [words, setWords] = useState([]);
   const textAreaRef = useRef(null);
   const [duration, setDuration] = useState(TYPING_DURATION);
   const [showCard, setShowCard] = useState(false);
-  // for setinterval function that
+  const [loading, setLoading] = useState(false)
   const [intervalState, setIntervalState] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
-  // the card info that will appear after a periode of time specified in duration state
   const [cardTypingTestInfo, setCardTypingTestInfo] = useState({
     typedLetters: 0,
     correctLetters: 0,
+    accuracy: 0
   });
   // getting differents words from `https://random-word-api.herokuapp.com/word?number=${WORDS_NUMBER}`
   const fetchData = useCallback(async () => {
-    axios
-      .get("https://random-word-api.herokuapp.com/word?number=60")
-      .then((response) => response.data)
-      .then((data) => {
-        setWords(
-          data
-            .join(' ')
-            .split('')
-            .map((letter, index) => (
-              <span key={index} id={`letter__${index}`}>
-                {letter}
-              </span>
-            )),
-        );
-        document
-          .querySelectorAll('.typing__words span')
-          .forEach((span) => (span.className = ''));
-      });
+    setLoading(true)
+    axios.get("https://random-word-api.herokuapp.com/word?number=200").then((data) => {
+      setWords(
+        data.data
+          .join(' ')
+          .split('')
+          .map((letter, index) => (
+            <span key={index} id={`letter__${index}`}>
+              {letter}
+            </span>
+          )),
+      );
+      setLoading(false)
+    }).catch(() => {
+      setLoading(false)
+      setWords(
+        sample
+          .join(' ')
+          .split('')
+          .map((letter, index) => (
+            <span key={index} id={`letter__${index}`}>
+              {letter}
+            </span>
+          )),
+      );
+    })
+
   }, []);
-  /* !handleInput
-   * changing the color of the correct letter to "green"
-   * changing the color of the incorect letter to "red" & underlining it
-   */
+
   const handleInput = () => {
     let typedLetters = textAreaRef.current.value.split('');
     words.forEach((word, index) => {
@@ -55,14 +67,12 @@ function App() {
           'letter__incorrect';
       }
     });
-    // adding a small cursor
     document.getElementById(
       `letter__${textAreaRef.current.value.length}`,
     ).className = 'typing__cursor';
   };
 
   useEffect(() => {
-    // when user focus in the textArea we will dercrement the duration like a counter
     if (isFocused && duration === TYPING_DURATION) {
       setIntervalState(
         setInterval(
@@ -70,10 +80,10 @@ function App() {
           1000,
         ),
       );
-      // if the duraion arrived to {0} we will stop the interval
+
     } else if (duration === 0) {
       clearInterval(intervalState);
-      // leaving focus from textArea
+
       textAreaRef?.current.blur();
       // setIsFocused(false);
       setCardTypingTestInfo(() => {
@@ -81,12 +91,13 @@ function App() {
           typedLetters: textAreaRef?.current?.value?.length,
           correctLetters:
             document.querySelectorAll('.letter__correct').length,
+
         };
       });
-      // showing the card
+
       setShowCard(true);
-      // getting new words
-      if (!isFocused) fetchData();
+
+      // if (!isFocused) fetchData();
     }
   }, [duration, isFocused]);
 
@@ -95,7 +106,7 @@ function App() {
   }, []);
 
   const handleFocus = () => {
-    // showing the cursor
+
     document.getElementById(
       `letter__${textAreaRef.current.value.length ?? 0}`,
     ).className = 'typing__cursor';
@@ -103,31 +114,33 @@ function App() {
   };
 
   const handleBlur = () => {
-    // hiding the cursor
+
     document.querySelector('.typing__cursor').className = '';
     setIsFocused(false);
   };
 
   return (
     <Container id="typing__test__speed">
-      <Box variant='h3' color='primary'>
-        Typing Test Speed
-      </Box>
-      <Box variant='h1' color='primary'>
+      <Header />
+      <Box color="#FFDB58" mt={'30px'} {...(isFocused && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
         {duration}
       </Box>
-      <main style={{ height: 0 }}>
+      {!showCard && <div>
+        {loading === true && <Loader />}
         <div className='typing__textArea'>
           <InputTextField
             unselectable='on'
-            onFocus={handleFocus}
             onBlur={handleBlur}
+            onFocus={handleFocus}
             onInput={handleInput}
             ref={textAreaRef}
           />
         </div>
         <div className='typing__words'>{words.length > 0 && words}</div>
-      </main>
+
+      </div>}
+
+      {showCard && <pre><code>{JSON.stringify(cardTypingTestInfo, 2, null)}</code></pre>}
       {/* {showCard && (
         <CardInfo
           {...cardTypingTestInfo}
@@ -136,8 +149,17 @@ function App() {
           textAreaRef={textAreaRef}
         />
       )} */}
-    </Container>
+    </Container >
   )
 }
 
 export default App
+
+
+const Loader = () => {
+  return (
+    <Box w='100%' marginTop={"20%"} textAlign={"center"} >
+      <Spinner color="#FFDB58" size='xl' />
+    </Box>
+  )
+}

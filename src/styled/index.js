@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const LettersFontSize = "1.3em"
+const LettersFontSize = "18px"
 
 export const Colors = {
 	white: '#ffffff',
@@ -10,11 +10,13 @@ export const Colors = {
 };
 
 export const Container = styled.section`
-	display: flex;
-	font-family:Integral CF;
+	
 	justify-content: space-around;
+	background-color: #4d4855;
+background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
+	height: 100vh;
+	/* overflow: hidden; */
 	align-items: center;
-	flex-direction: column;
 	position: relative;
 	width: 100%;
 	flex-wrap: wrap;
@@ -23,10 +25,13 @@ export const Container = styled.section`
 	.typing__words {
 		position: relative;
 		top: -400px;
+		color: #fcfcfc;
+		font-family:Raleway;
+	letter-spacing: 0.75px;
 		padding: 1em;
 		z-index: 0;
-		background-color:#f3ededc4;
-		box-shadow: 1px 1px 9px 0px ${Colors.cyan};
+		/* background-color:#f3ededc4; */
+		/* box-shadow: 1px 1px 9px 0px ${Colors.cyan}; */
 		user-select: none; // for not selecting the text and copying it into the textArea
 		span {
 			font-weight: 500;
