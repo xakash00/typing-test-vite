@@ -10,5 +10,17 @@ export default defineConfig({
     },
 
   }),],
-  define: { _global: ({}), }
+  define: { _global: ({}), },
+  server: {
+    host: true,
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://metaphorpsum.com/paragraphs/1/20',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+
+  },
 })

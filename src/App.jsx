@@ -27,7 +27,7 @@ function App() {
   // getting differents words from `http://metaphorpsum.com/paragraphs/1/20`
   const fetchData = useCallback(async () => {
     setLoading(true)
-    axios.get("http://metaphorpsum.com/paragraphs/1/20").then((data) => {
+    axios.get("https://metaphorpsum.com/paragraphs/1/20").then((data) => {
       setWords(
         data.data
           .split('')
