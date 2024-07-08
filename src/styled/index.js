@@ -10,10 +10,9 @@ export const Colors = {
 };
 
 export const Container = styled.section`
-	
 	justify-content: space-around;
 	background-color: #4d4855;
-background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
+	background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
 	height: 100vh;
 	/* overflow: hidden; */
 	align-items: center;
@@ -27,7 +26,7 @@ background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
 		top: -400px;
 		color: #fcfcfc;
 		font-family:Raleway;
-	letter-spacing: 0.75px;
+		letter-spacing: 0.75px;
 		padding: 1em;
 		z-index: 0;
 		/* background-color:#f3ededc4; */

@@ -120,7 +120,7 @@ function App() {
 
   return (
     <Container id="typing__test__speed">
-      <Header refetch={fetchData} />
+      <Header refetch={() => { fetchData(); setShowCard(false); setDuration(TYPING_DURATION); }} />
       <Box color="#FFDB58" mt={'30px'} {...(duration < 11 && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
         {duration}
       </Box>
