@@ -6,10 +6,7 @@ import { Container, InputTextField } from "./styled";
 import "./App.css";
 import Header from "./components/header";
 import { fallBackParagraph } from "./helperFuncs";
-
-
-
-
+import OptionBar from "./components/optionsBar";
 
 function App() {
   const [words, setWords] = useState([]);
@@ -27,7 +24,7 @@ function App() {
   // getting differents words from `http://metaphorpsum.com/paragraphs/1/20`
   const fetchData = useCallback(async () => {
     setLoading(true)
-    axios.get("https://metaphorpsum.com/paragraphs/1/20").then((data) => {
+    axios.get("http://metaphorpsum.com/paragraphs/1/20").then((data) => {
       setWords(
         data.data
           .split('')
@@ -119,28 +116,37 @@ function App() {
     setIsFocused(false);
   };
 
+  const updateDuration = (num) => {
+    setDuration(num)
+  }
+
   return (
     <Container id="typing__test__speed">
       <Header refetch={() => { fetchData(); setShowCard(false); setDuration(TYPING_DURATION); }} />
+      <Box mt="30px">
+        <OptionBar {...{ updateDuration, setWords }} refetch={() => { fetchData(); setShowCard(false); setDuration(TYPING_DURATION); }} />
+      </Box>
       <Box color="#FFDB58" mt={'30px'} {...(duration < 11 && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
         {duration}
       </Box>
-      {!showCard && <div>
-        {loading === true ? <Loader /> : <>
-          <div className='typing__textArea'>
-            <InputTextField
-              unselectable='on'
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-              onInput={handleInput}
-              ref={textAreaRef}
-            />
-          </div>
-          <div className='typing__words'>{words.length > 0 && words}</div>
-        </>
-        }
+      {
+        !showCard && <Box>
+          {loading === true ? <Loader /> : <>
+            <Box className='typing__textArea'>
+              <InputTextField
+                unselectable='on'
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                onInput={handleInput}
+                ref={textAreaRef}
+              />
+            </Box>
+            <Box className='typing__words'>{words.length > 0 && words}</Box>
+          </>
+          }
 
-      </div>}
+        </Box>
+      }
 
       {showCard && <pre><code>{JSON.stringify(cardTypingTestInfo, 2, null)}</code></pre>}
       {/* {showCard && (

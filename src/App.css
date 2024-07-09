@@ -1,7 +1,6 @@
 body {
   font-family: Integral CF;
   height: 100vh;
-  overflow: hidden;
 }
 
 .letter__correct {
@@ -18,6 +17,12 @@ body {
 
 }
 
+.options-bar {
+  width: 50%;
+  margin: auto;
+  background-color: #12100E;
+  /* background-image: linear-gradient(147deg, #000000 0%, #4d4855 74%); */
+}
 
 .blink_me {
   animation: blinker 1s linear infinite;
@@ -28,5 +33,14 @@ body {
 @keyframes blinker {
   50% {
     opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .options-bar {
+    width: 100%;
+    margin: auto;
+    background-color: #12100E;
+    /* background-image: linear-gradient(147deg, #000000 0%, #4d4855 74%); */
   }
 }

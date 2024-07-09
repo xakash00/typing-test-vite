@@ -10,11 +10,4 @@ export default defineConfig({
     },
 
   }),],
-  define: { _global: ({}), },
-  server: {
-    proxy: {
-      '/api': 'http://metaphorpsum.com/paragraphs/1/20'
-    }
-
-  },
 })
