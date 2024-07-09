@@ -24,7 +24,7 @@ function App() {
   // getting differents words from `http://metaphorpsum.com/paragraphs/1/20`
   const fetchData = useCallback(async () => {
     setLoading(true)
-    axios.get("http://metaphorpsum.com/paragraphs/1/20").then((data) => {
+    axios.get(`http://metaphorpsum.com/paragraphs/1/${15}`).then((data) => {
       setWords(
         data.data
           .split('')
@@ -49,7 +49,7 @@ function App() {
       );
     })
 
-  }, []);
+  }, [duration]);
 
   const handleInput = () => {
     let typedLetters = textAreaRef.current.value.split('');
@@ -70,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (isFocused && duration === TYPING_DURATION) {
+    if (isFocused && (duration === 15 || duration === 30 || duration === 60 || duration === 120 || duration === 25)) {
       setIntervalState(
         setInterval(
           () => setDuration((duration) => duration - 1),
@@ -124,7 +124,7 @@ function App() {
     <Container id="typing__test__speed">
       <Header refetch={() => { fetchData(); setShowCard(false); setDuration(TYPING_DURATION); }} />
       <Box mt="30px">
-        <OptionBar {...{ updateDuration, setWords }} refetch={() => { fetchData(); setShowCard(false); setDuration(TYPING_DURATION); }} />
+        <OptionBar {...{ updateDuration, setWords, setLoading }} refetch={() => { fetchData(); setShowCard(false); setDuration() }} />
       </Box>
       <Box color="#FFDB58" mt={'30px'} {...(duration < 11 && { className: "blink_me" })} variant="h1" fontSize={"30px"} fontWeight={500} w='100%' textAlign={"center"}>
         {duration}

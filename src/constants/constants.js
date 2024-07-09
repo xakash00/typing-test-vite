@@ -1,1 +1,1 @@
-export const TYPING_DURATION = 50
+export const TYPING_DURATION = 60

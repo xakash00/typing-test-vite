@@ -1,6 +1,7 @@
 body {
   font-family: Integral CF;
   height: 100vh;
+  overflow: hidden;
 }
 
 .letter__correct {
