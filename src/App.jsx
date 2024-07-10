@@ -24,9 +24,10 @@ function App() {
   // getting differents words from `http://metaphorpsum.com/paragraphs/1/20`
   const fetchData = useCallback(async () => {
     setLoading(true)
-    axios.get(`http://metaphorpsum.com/paragraphs/1/${15}`).then((data) => {
+    axios.get(`https://baconipsum.com/api/?type=meat-and-filler?paras=1`).then((data) => {
+      // console.log(data)
       setWords(
-        data.data
+        data.data?.[0]
           .split('')
           .map((letter, index) => (
             <span key={index} id={`letter__${index}`}>
