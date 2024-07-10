@@ -24,26 +24,26 @@ const OptionBar = (props) => {
     }
 
     return (
-        <Flex rounded='8px' className='options-bar' padding="16px" alignItems={"center"} justifyContent={"center"}>
-            <Box gap="8px" onClick={() => { refetch(); updateDuration(TYPING_DURATION) }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} stroke="#646669" _hover={{ bg: "transparent", stroke: "#FCFCFC", color: "#FCFCFC" }}>
+        <Flex rounded='8px' className='options-bar' padding="8px 16px" alignItems={"center"} justifyContent={"center"}>
+            <Box gap="8px" onClick={() => { refetch(); updateDuration(TYPING_DURATION) }} color="#646669" width="100%" display="flex" alignItems={"center"} justifyContent={"center"} stroke="#646669" _hover={{ bg: "transparent", stroke: "#FCFCFC", color: "#FCFCFC" }}>
                 <Reset width="20px" height={"20px"} />
-                <Box color="#646669" fontSize={"13px"}>Reset</Box>
+                <Box fontSize={"13px"} fontWeight={600}>Reset</Box>
             </Box>
-            <Box gap='8px' onClick={() => { getQuotes() }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fill="#646669" _hover={{ bg: "transparent", fill: "#FCFCFC", color: "#FCFCFC" }}>
+            <Box gap='8px' onClick={() => { getQuotes() }} color="#646669" width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fill="#646669" _hover={{ bg: "transparent", fill: "#FCFCFC", color: "#FCFCFC" }}>
                 <Quotes width="20px" height={"20px"} />
-                <Box color="#646669" fontSize={"13px"}>Quotes</Box>
+                <Box fontSize={"13px"} fontWeight={600}>Quotes</Box>
             </Box>
             <Flex alignItems={"center"} gap="30px" pl="30px" borderLeft="2px solid white">
-                <Box as='button' onClick={() => { updateDuration(15) }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
+                <Box as='button' onClick={() => { updateDuration(15) }} width="100%" fontWeight={500} display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
                     15
                 </Box>
-                <Box as='button' onClick={() => { updateDuration(30) }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
+                <Box as='button' onClick={() => { updateDuration(30) }} width="100%" fontWeight={500} display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
                     30
                 </Box>
-                <Box as='button' onClick={() => { updateDuration(60) }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
+                <Box as='button' onClick={() => { updateDuration(60) }} width="100%" fontWeight={500} display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
                     60
                 </Box>
-                <Box as='button' onClick={() => { updateDuration(120) }} width="100%" display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
+                <Box as='button' onClick={() => { updateDuration(120) }} width="100%" fontWeight={500} display="flex" alignItems={"center"} justifyContent={"center"} fontSize="13px" color="#646669" _hover={{ bg: "transparent", color: "#FCFCFC" }}>
                     120
                 </Box>
             </Flex>

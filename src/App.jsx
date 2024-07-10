@@ -70,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (isFocused && (duration === 15 || duration === 30 || duration === 60 || duration === 120 || duration === 25)) {
+    if (isFocused && duration === TYPING_DURATION) {
       setIntervalState(
         setInterval(
           () => setDuration((duration) => duration - 1),

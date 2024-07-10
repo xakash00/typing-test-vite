@@ -5,6 +5,7 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/typing-test-vite",
   plugins: [react(), svgr({
     svgrOptions: {
     },
